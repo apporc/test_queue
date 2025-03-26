@@ -6,9 +6,11 @@ edition = "2024"
 [dependencies]
 flume = "0.11.1"
 rand = "0.9.0"
-ringbuf = "0.4.8"
+ringbuf = { version = "0.4.8", features = ["alloc", "std"] }
 tokio = { version = "1", features = ["full"] }
 criterion = { version = "0.5", features = ["html_reports"] }
+ringbuf-blocking = "0.1.0-rc.5"
+crossbeam-channel = "0.5.14"
 
 [[bench]]
 name = "queue_bench"
