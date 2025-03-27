@@ -93,6 +93,32 @@ fn bench_queues(c: &mut Criterion) {
         });
     });
 
+    group.bench_function("TokioMPSC coroutine", |b| {
+        b.iter(|| {
+            // 创建单一运行时
+            let rt = Runtime::new().unwrap();
+            let (tx, mut rx) = tokio_mpsc::channel::<u64>(1024);
+
+            // 在同一运行时中运行生产者和消费者
+            rt.block_on(async {
+                // 生产者协程
+                let producer = tokio::spawn(async move {
+                    for _ in 0..MSG_COUNT {
+                        tx.send(0).await.unwrap();
+                    }
+                });
+
+                // 消费者协程
+                for _ in 0..MSG_COUNT {
+                    black_box(rx.recv().await.unwrap());
+                }
+
+                // 等待生产者完成
+                producer.await.unwrap();
+            });
+        });
+    });
+
     group.bench_function("Flume (sync)", |b| {
         b.iter(|| {
             let (tx, rx) = flume::bounded(1024);

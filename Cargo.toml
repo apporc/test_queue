@@ -11,7 +11,12 @@ tokio = { version = "1", features = ["full"] }
 criterion = { version = "0.5", features = ["html_reports"] }
 ringbuf-blocking = "0.1.0-rc.5"
 crossbeam-channel = "0.5.14"
+quote = "1"
+syn = { version = "2.0.100", features = ["full"] }
 
 [[bench]]
-name = "queue_bench"
+name = "demo"
 harness = false
+
+#[lib]
+#proc-macro = true

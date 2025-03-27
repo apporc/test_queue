@@ -747,9 +747,11 @@ dependencies = [
  "criterion",
  "crossbeam-channel",
  "flume",
+ "quote",
  "rand",
  "ringbuf",
  "ringbuf-blocking",
+ "syn",
  "tokio",
 ]
 
