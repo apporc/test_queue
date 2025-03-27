@@ -14,7 +14,7 @@ fn bench_queues(c: &mut Criterion) {
     let mut group = c.benchmark_group("Queue Throughput");
     group.throughput(Throughput::Elements(MSG_COUNT as u64));
     group.measurement_time(std::time::Duration::from_secs(30));
-    group.sample_size(1000);
+    group.sample_size(10);
 
     // 创建单一运行时
     let rt = tokio::runtime::Builder::new_multi_thread()
